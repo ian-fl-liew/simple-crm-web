@@ -28,6 +28,7 @@ export function CustomerProvider({ children }) {
         // Simulate network delay to show the loading spinner
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const response = await fetch(`${API_BASE}/customers`);
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
         const data = await response.json();
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
